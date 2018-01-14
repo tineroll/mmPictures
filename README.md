@@ -22,35 +22,35 @@
 ***
 ####开始爬取
 #####确定URL开始抓取
-1. 我们以 http://www.zngirls.com/rank/sum/ 为起始页面进行爬取，打开网页后右键查看源代码。
+1. 我们以 http://www.888meinv.com/rank/sum/ 为起始页面进行爬取，打开网页后右键查看源代码。
 打开这个url后，如图1。我们需要关心的是红色链接的内容。
 ![图1](https://raw.githubusercontent.com/panacena/mmPictures/master/2.png)
 
 2. 这个如何查找呢?如果你用的是360浏览器，在MM图片那右击，选择“审查元素”。之后就可以查看到点击MM头像后跳转的url地址和MM头像的url地址  。图2：
 ![图2](https://raw.githubusercontent.com/panacena/mmPictures/master/3.png)
 
-3 . 现在还是没有看到写真的图片，我们点击MM的头像，进入到了下图的页面  http://www.zngirls.com/girl/21751/ 可以看到如图3这个页面也没有写真的具体图片，只是写真的封面集合。不急，我们继续点击封面。
+3 . 现在还是没有看到写真的图片，我们点击MM的头像，进入到了下图的页面  http://www.888meinv.com/girl/21751/ 可以看到如图3这个页面也没有写真的具体图片，只是写真的封面集合。不急，我们继续点击封面。
 ![图3](https://raw.githubusercontent.com/panacena/mmPictures/master/4.png)
-4 .  点击封面后，http://www.zngirls.com/g/19671/1.html  进入的页面就可以看到写真的具体图片了。这时我们就可以爬取图片地址了。当然，这个也是分页的，所以也需要获取一共多少页以及每一页的url。
+4 .  点击封面后，http://www.888meinv.com/g/19671/1.html  进入的页面就可以看到写真的具体图片了。这时我们就可以爬取图片地址了。当然，这个也是分页的，所以也需要获取一共多少页以及每一页的url。
 
 ![Paste_Image.png](https://raw.githubusercontent.com/panacena/mmPictures/master/5.png)
 
 #####开始码代码吧
 从上面的步骤我们整理一下思路，大概分为以下三部：
-* 第一步 从 http://www.zngirls.com/rank/sum/ 开始抓取MM点击头像的链接(注意是分页的)
-* 第二部 从 http://www.zngirls.com/girl/21751/ 抓取每一个写真集合的链接(注意是分页的)
-* 第三部 从 http://www.zngirls.com/g/19671/1.html 在写真图片的具体页面抓取图片(注意是分页的)
+* 第一步 从 http://www.888meinv.com/rank/sum/ 开始抓取MM点击头像的链接(注意是分页的)
+* 第二部 从 http://www.888meinv.com/girl/21751/ 抓取每一个写真集合的链接(注意是分页的)
+* 第三部 从 http://www.888meinv.com/g/19671/1.html 在写真图片的具体页面抓取图片(注意是分页的)
 
 
-**1. 从起始页面 http://www.zngirls.com/rank/sum/ 开始首选先获取分页的页数以及每一页的url，方便下一步获取点击MM获取专辑url地址。接着解析每一页的html，获取每一页中点击MM头像后跳转的专辑集合页面。**
+**1. 从起始页面 http://www.888meinv.com/rank/sum/ 开始首选先获取分页的页数以及每一页的url，方便下一步获取点击MM获取专辑url地址。接着解析每一页的html，获取每一页中点击MM头像后跳转的专辑集合页面。**
 
 ```
 """
-从起始页面 http://www.zngirls.com/rank/sum/ 开始获取排名的页数和每一页的url
+从起始页面 http://www.888meinv.com/rank/sum/ 开始获取排名的页数和每一页的url
 
 """
 def  mmRankSum():
-    req = urllib2.Request("http://www.zngirls.com/rank/sum/", headers=header)
+    req = urllib2.Request("http://www.888meinv.com/rank/sum/", headers=header)
     html = urllib2.urlopen(req)
     htmldata = html.read()
     htmlpath = etree.HTML(htmldata)
@@ -61,7 +61,7 @@ def  mmRankSum():
 
     for i in range( len(pages) -2 ):
 
-        pagesitem="http://www.zngirls.com/rank/sum/"+ pages[i]
+        pagesitem="http://www.888meinv.com/rank/sum/"+ pages[i]
         mmRankitem(pagesitem)
 
 """
@@ -78,7 +78,7 @@ def mmRankitem(url):
     pages = htmlpath.xpath('//div[@class="rankli_imgdiv"]/a/@href')
     for i in range(len(pages)):
 
-        print "http://www.zngirls.com/" + pages[i]
+        print "http://www.888meinv.com/" + pages[i]
 ```
 ***
 **2. 从mmRankitem方法中获取到的url中解析每一个MM写真专辑图片的具体地址，也就是写真图片列表的页面。**
@@ -97,8 +97,8 @@ def getAlbums(girlUrl):
 
     pages = htmlpath.xpath('//div[@class="igalleryli_div"]/a/@href')
     for i in range(len(pages)):
-         print  "http://www.zngirls.com/" + pages[i]+"album/"
-         getAlbums("http://www.zngirls.com/" + pages[i]+"/album/")
+         print  "http://www.888meinv.com/" + pages[i]+"album/"
+         getAlbums("http://www.888meinv.com/" + pages[i]+"/album/")
 ```
 
 **3.  从每一页中获取图片的url，已经每一张图片的名称，方便下一步进行下载。**
@@ -117,7 +117,7 @@ def getPagePicturess(albumsurl):
     htmlpath = etree.HTML(htmldata)
     pages = htmlpath.xpath('//div[@id="pages"]/a/@href')
     for i in range(len(pages)-2):
-        savePictures("http://www.zngirls.com" + pages[i])
+        savePictures("http://www.888meinv.com" + pages[i])
 
 """
 参数 url : 每一个MM写真专辑图片集合的地址(进过分页检测)
