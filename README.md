@@ -7,8 +7,8 @@
 
 里面的美女**露骨而不露点**，简直是宅男福利。一时兴起，决定将网站上的图片down下来研究研究。正好最近在研究python，所以决定用这个抓取图片存到本地，将图片url存到 mongodb以防止以后用。
 
-源码项目github地址 ： https://github.com/panacena/mmPictures/
-本人博客地址 ：  http://www.jianshu.com/u/61f41588151d
+源码项目github地址 ： https://github.com/tineroll/mmPictures
+本人博客地址 ：  https://www.jianshu.com/p/1d238c9e35e7
 ***
 ####爬虫初识
 网络爬虫（又被称为网页蜘蛛，网络机器人，在FOAF社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动的抓取万维网信息的程序或者脚本。
@@ -22,18 +22,18 @@
 ***
 ####开始爬取
 #####确定URL开始抓取
-1. 我们以 http://www.888meinv.com/rank/sum/ 为起始页面进行爬取，打开网页后右键查看源代码。
+1. 我们以 https://www.888meinv.com/ 为起始页面进行爬取，打开网页后右键查看源代码。
 打开这个url后，如图1。我们需要关心的是红色链接的内容。
-![图1](https://raw.githubusercontent.com/panacena/mmPictures/master/2.png)
+![图1](https://raw.githubusercontent.com/tineroll/mmPictures/master/2.png)
 
 2. 这个如何查找呢?如果你用的是360浏览器，在MM图片那右击，选择“审查元素”。之后就可以查看到点击MM头像后跳转的url地址和MM头像的url地址  。图2：
-![图2](https://raw.githubusercontent.com/panacena/mmPictures/master/3.png)
+![图2](https://raw.githubusercontent.com/tineroll/mmPictures/master/3.png)
 
 3 . 现在还是没有看到写真的图片，我们点击MM的头像，进入到了下图的页面  http://www.888meinv.com/girl/21751/ 可以看到如图3这个页面也没有写真的具体图片，只是写真的封面集合。不急，我们继续点击封面。
-![图3](https://raw.githubusercontent.com/panacena/mmPictures/master/4.png)
+![图3](https://raw.githubusercontent.com/tineroll/mmPictures/master/4.png)
 4 .  点击封面后，http://www.888meinv.com/g/19671/1.html  进入的页面就可以看到写真的具体图片了。这时我们就可以爬取图片地址了。当然，这个也是分页的，所以也需要获取一共多少页以及每一页的url。
 
-![Paste_Image.png](https://raw.githubusercontent.com/panacena/mmPictures/master/5.png)
+![Paste_Image.png](https://raw.githubusercontent.com/tineroll/mmPictures/master/5.png)
 
 #####开始码代码吧
 从上面的步骤我们整理一下思路，大概分为以下三部：
@@ -193,9 +193,9 @@ def savePictures(itemPagesurl):
 
 没有设置一些header等参数时，有时会出现如下这种情况，这种情况应该是网站有反爬虫的机制。
 
-![反爬虫](https://raw.githubusercontent.com/panacena/mmPictures/master/7.png)
+![反爬虫](https://raw.githubusercontent.com/tineroll/mmPictures/master/7.png)
 
 
 ***
-源码项目github地址 ： https://github.com/panacena/mmPictures/
+源码项目github地址 ： https://github.com/tineroll/mmPictures/
 这是本人学习python后写的一个小例子。代码写的很烂。以后会学习Scrapy等框架然后在重新重构一下代码。希望可以给个star~~~
